@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de Préstamo - Aula Maker</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <h1>Formulario de Préstamo de Material</h1>
+        <p>Completa el siguiente formulario para registrar la solicitud de uso de los equipos.</p>
+
+        <!-- Formulario enlazado al DTO con th:object -->
+        <form th:action="@{/solicitudes}" th:object="${solicitudPrestamoForm}" method="post">
+
+            <!-- Nombre -->
+            <div class="form-group">
+                <label for="nombre">Nombre de quien solicita *</label>
+                <input type="text" id="nombre" th:field="*{nombre}"
+                       th:classappend="${#fields.hasErrors('nombre')} ? 'input-error'">
+                <div class="error-text" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error en el nombre</div>
+            </div>
+
+            <!-- Correo -->
+            <div class="form-group">
+                <label for="correo">Correo electrónico *</label>
+                <input type="email" id="correo" th:field="*{correo}"
+                       th:classappend="${#fields.hasErrors('correo')} ? 'input-error'">
+                <div class="error-text" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}">Error en el correo</div>
+            </div>
+
+            <!-- Material solicitado -->
+            <div class="form-group">
+                <label for="material">Material solicitado *</label>
+                <select id="material" th:field="*{material}"
+                        th:classappend="${#fields.hasErrors('material')} ? 'input-error'">
+                    <option value="">-- Selecciona un recurso --</option>
+                    <option th:each="mat : ${materiales}"
+                            th:value="${mat[0]}"
+                            th:text="${mat[1]} + ' (' + ${mat[0]} + ')'">
+                        Recurso
+                    </option>
+                </select>
+                <div class="error-text" th:if="${#fields.hasErrors('material')}" th:errors="*{material}">Error en el material</div>
+            </div>
+
+            <!-- Unidades -->
+            <div class="form-group">
+                <label for="unidades">Unidades (entre 1 y 3) *</label>
+                <input type="number" id="unidades" th:field="*{unidades}" min="1" max="3"
+                       th:classappend="${#fields.hasErrors('unidades')} ? 'input-error'">
+                <div class="error-text" th:if="${#fields.hasErrors('unidades')}" th:errors="*{unidades}">Error en las unidades</div>
+            </div>
+
+            <!-- Fecha de recogida -->
+            <div class="form-group">
+                <label for="fechaRecogida">Fecha de recogida *</label>
+                <input type="date" id="fechaRecogida" th:field="*{fechaRecogida}"
+                       th:classappend="${#fields.hasErrors('fechaRecogida')} ? 'input-error'">
+                <div class="error-text" th:if="${#fields.hasErrors('fechaRecogida')}" th:errors="*{fechaRecogida}">Error en fecha de recogida</div>
+            </div>
+
+            <!-- Fecha de devolución -->
+            <div class="form-group">
+                <label for="fechaDevolucion">Fecha de devolución *</label>
+                <input type="date" id="fechaDevolucion" th:field="*{fechaDevolucion}"
+                       th:classappend="${#fields.hasErrors('fechaDevolucion')} ? 'input-error'">
+                <div class="error-text" th:if="${#fields.hasErrors('fechaDevolucion')}" th:errors="*{fechaDevolucion}">Error en fecha de devolución</div>
+            </div>
+
+            <!-- Motivo -->
+            <div class="form-group">
+                <label for="motivo">Motivo del préstamo (entre 30 y 400 caracteres) *</label>
+                <textarea id="motivo" th:field="*{motivo}" rows="4"
+                          th:classappend="${#fields.hasErrors('motivo')} ? 'input-error'"></textarea>
+                <div class="error-text" th:if="${#fields.hasErrors('motivo')}" th:errors="*{motivo}">Error en el motivo</div>
+            </div>
+
+            <!-- Aceptación de normas -->
+            <div class="form-group">
+                <label style="display: flex; align-items: center; gap: 0.5rem; font-weight: normal;">
+                    <input type="checkbox" th:field="*{aceptaNormas}">
+                    Acepto las normas de uso e inventario del Aula Maker *
+                </label>
+                <div class="error-text" th:if="${#fields.hasErrors('aceptaNormas')}" th:errors="*{aceptaNormas}">Error en aceptación de normas</div>
+            </div>
+
+            <!-- Botones -->
+            <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+                <button type="submit" class="btn">Enviar Solicitud</button>
+                <a th:href="@{/}" class="btn btn-secondary">Cancelar y Volver</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

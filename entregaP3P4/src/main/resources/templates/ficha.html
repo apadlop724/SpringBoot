@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ficha de Material - Aula Maker</title>
+  <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<div class="container">
+  <div class="card">
+    <h2>Ficha de Recurso: <span th:text="${nombre}">Nombre Material</span></h2>
+
+    <p><strong>Código del recurso:</strong> <span class="badge" th:text="${codigo}">CODIGO</span></p>
+    <p><strong>Descripción:</strong> <span th:text="${descripcion}">Descripción detallada</span></p>
+
+    <div class="alert-info">
+      <strong>Turno solicitado:</strong> <span th:text="${turno}">general</span>
+    </div>
+
+    <div style="margin-top: 2rem; display: flex; gap: 1rem; align-items: center;">
+      <a th:href="@{/solicitud/nueva}" class="btn">Solicitar Préstamo</a>
+      <a th:href="@{/}" class="btn btn-secondary">Volver al Catálogo</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

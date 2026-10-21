@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resumen de Solicitud - Aula Maker</title>
+  <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<div class="container">
+  <div class="card">
+    <h1>Resumen de la Solicitud</h1>
+    <p>Se han recibido correctamente los datos especificados. <em>Nota: Esta solicitud es temporal y no implica reserva ni persistencia en base de datos.</em></p>
+
+    <table>
+      <tr>
+        <th>Solicitante:</th>
+        <td th:text="${solicitud.nombre}">Nombre</td>
+      </tr>
+      <tr>
+        <th>Correo de contacto:</th>
+        <td th:text="${solicitud.correo}">correo@ejemplo.com</td>
+      </tr>
+      <tr>
+        <th>Material solicitado:</th>
+        <td th:text="${solicitud.material}">CÓDIGO</td>
+      </tr>
+      <tr>
+        <th>Unidades:</th>
+        <td th:text="${solicitud.unidades}">1</td>
+      </tr>
+      <tr>
+        <th>Fecha de recogida:</th>
+        <td th:text="${solicitud.fechaRecogida}">2026-10-21</td>
+      </tr>
+      <tr>
+        <th>Fecha de devolución:</th>
+        <td th:text="${solicitud.fechaDevolucion}">2026-10-22</td>
+      </tr>
+      <tr>
+        <th>Motivo expresado:</th>
+        <td th:text="${solicitud.motivo}">Texto del motivo...</td>
+      </tr>
+    </table>
+
+    <!-- Cálculos de días y condición en Thymeleaf -->
+    <div class="alert-info">
+      <h3>Cálculo de Duración e Impacto:</h3>
+
+      <p th:if="${diasPrestamo == 1}">
+        <strong>Duración:</strong> Se trata de un préstamo puntual de <strong>1 día</strong> (misma jornada de recogida y devolución).
+      </p>
+      <p th:unless="${diasPrestamo == 1}">
+        <strong>Duración:</strong> Préstamo extendido de <strong th:text="${diasPrestamo}">N</strong> días consecutivos.
+      </p>
+
+      <p>
+        <strong>Total de días-unidad acumulados:</strong>
+        <span class="badge" th:text="${diasUnidad}">0</span>
+        <small>(Días totales × Unidades solicitadas)</small>
+      </p>
+    </div>
+
+    <div style="margin-top: 1.5rem;">
+      <a th:href="@{/}" class="btn">Volver al Catálogo</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

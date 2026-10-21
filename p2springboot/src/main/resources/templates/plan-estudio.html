@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Plan de Estudio</title>
+    <style>
+        :root {
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+        }
+        body {
+            font-family: sans-serif;
+            max-width: 650px;
+            margin: 20px auto;
+            padding: 0 10px;
+            background-color: #f7fafc;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .bloque {
+            display: inline-block;
+            border: 1px solid #ccc;
+            padding: 2px 8px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- 1. Saludo e inserción segura con th:text -->
+        <h1>¡Hola, <span th:text="${nombreEstudiante}">Estudiante</span>!</h1>
+        <p><strong th:text="${tituloPlan}">Plan de Estudio</strong></p>
+
+        <!-- 2. Contador total con #lists -->
+        <p>Total de asignaturas para hoy: <strong th:text="${#lists.size(asignaturas)}">0</strong></p>
+
+        <!-- 3. Lista recorrida con th:each e índice -->
+        <h2>Asignaturas:</h2>
+        <ul>
+            <li th:each="asignatura, iterStat : ${asignaturas}">
+                <!-- Número de orden -->
+                <span th:text="${iterStat.count} + '.'">1.</span>
+                <!-- Nombre de asignatura -->
+                <span th:text="${asignatura}">Asignatura</span> — 
+                <!-- Duración obtenida por el índice -->
+                <strong th:text="${duraciones[iterStat.index]} + ' min'">0 min</strong>
+            </li>
+        </ul>
+
+        <!-- 4. Formato de número con #numbers.formatDecimal -->
+        <p>
+            Tiempo total estimado: 
+            <strong th:text="${#numbers.formatDecimal(totalHoras, 1, 2)}">0.00</strong> horas
+        </p>
+
+        <!-- 5. Secuencia numérica con #numbers.sequence -->
+        <p>Bloques de estudio:</p>
+        <div>
+            <span th:each="num : ${#numbers.sequence(1, #lists.size(asignaturas))}" 
+                  class="bloque" 
+                  th:text="'Bloque ' + ${num}">Bloque 1</span>
+        </div>
+    </div>
+
+</body>
+</html>

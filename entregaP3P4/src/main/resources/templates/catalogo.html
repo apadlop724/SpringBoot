@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Aula Maker</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <h1>Catálogo de Materiales — Aula Maker</h1>
+        <p>Selecciona un recurso para ver su ficha técnica o iniciar una solicitud de préstamo.</p>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acción</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Recorrido del array bidimensional en memoria -->
+            <tr th:each="material : ${materiales}">
+                <td th:text="${material[0]}">CODIGO</td>
+                <td th:text="${material[1]}">Nombre</td>
+                <td th:text="${material[2]}">Descripción</td>
+                <td>
+                    <!-- Enlace dinámico con Thymeleaf usando variables de ruta -->
+                    <a th:href="@{/materiales/{cod}(cod=${material[0]})}" class="btn">Ver Ficha</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div style="margin-top: 1rem;">
+            <a th:href="@{/solicitud/nueva}" class="btn btn-secondary">Nueva Solicitud de Préstamo</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

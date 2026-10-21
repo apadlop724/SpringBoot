@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error del Servidor - Aula Maker</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<div class="container">
+    <div class="card" style="text-align: center;">
+        <h1 style="color: var(--error-color);">Error Interno del Servidor</h1>
+        <p>Ha ocurrido un problema inesperado en la aplicación. Por favor, inténtalo más tarde.</p>
+        <div style="margin-top: 2rem;">
+            <a th:href="@{/}" class="btn">Volver al Catálogo Principal</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
